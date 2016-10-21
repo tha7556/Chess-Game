@@ -206,12 +206,23 @@ function Piece:possibleMoves()
 		end
 	--Possible moves for the King
 	elseif self.placeHolder == "King" then
-	
+		if self.y+1 < 9 then --forward
+			moves[#moves+1] = {self.x, self.y + 1}
+		end
+		if self.y-1 > 0 then --backward
+			moves[#moves+1] = {self.x, self.y - 1}
+		end
+		if self.x+1 < 9 then --right
+			moves[#moves+1] = {self.x + 1, self.y}
+		end
+		if self.x-1 > 0 then --left
+			moves[#moves+1] = {self.x - 1, self.y}
+		end
 	end
 	return moves
 end
 --"Main"
-local pawn1 = Piece:new({placeHolder="Queen",x=4,y=4,color="White"})
+local pawn1 = Piece:new({placeHolder="King",x=4,y=4,color="White"})
 print("running")
 local moves = pawn1:possibleMoves()
 for i=1, #moves do
