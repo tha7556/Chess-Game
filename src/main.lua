@@ -133,7 +133,7 @@ function Piece:possibleMoves()
 		end
 	--Possible moves for Bishops
 	elseif self.placeHolder == "Bishop" then
-		topLeft, topRight, bottomLeft, bottomRight = false
+		local topLeft, topRight, bottomLeft, bottomRight = false
 		for i=1, 7 do
 			--Top Left diagonal
 			if not topLeft and self.x-i > 0 and self.y+i < 9 then
@@ -166,6 +166,44 @@ function Piece:possibleMoves()
 		end
 	--Possible moves for the Queen
 	elseif self.placeHolder == "Queen" then
+		local topLeft, topRight, bottomLeft, bottomRight, top, bottom, right, left = false
+		for i=1, 7 do
+			--Top Left diagonal
+			if not topLeft and self.x-i > 0 and self.y+i < 9 then
+				if game.board[self.x-i][self.y+i] ~= nil then --if Space is occupied
+					topLeft = true
+				end
+				moves[#moves+1] = {self.x-i, self.y+i}
+			end
+			--Top Right diagonal
+			if not topRight and self.x+i > 0 and self.y+i < 9 then
+				if  game.board[self.x+i][self.y+i] ~= nil then --if Space is occupied
+					topRight = true
+				end
+				moves[#moves+1] = {self.x+i, self.y+i}
+			end
+			--Bottom Left diagonal
+			if not bottomLeft and self.x-i > 0 and self.y-i > 0 then
+				if game.board[self.x-i][self.y-i] ~= nil then --if Space is occupied
+					bottomLeft = true
+				end
+				moves[#moves+1] = {self.x-i, self.y-i} 
+			end
+			--Bottom Right diagonal
+			if not bottomRight and self.x+i < 9 and self.y-i > 0 then
+				if game.board[self.x+i][self.y-i] ~= nil then --if Space is occupied
+					bottomRight = true
+				end
+				moves[#moves+1] = {self.x+i, self.y-i}
+			end
+			--Forward
+			if not top and self.y+i < 9 then
+				if game.board[self.x][self.y+i] ~= nil then --if Space is occupied
+					bottomRight = true
+				end
+				moves[#moves+1] = {self.x, self.y+i}
+			end
+		end
 	--Possible moves for the King
 	elseif self.placeHolder == "King" then
 	
@@ -173,7 +211,7 @@ function Piece:possibleMoves()
 	return moves
 end
 --"Main"
-local pawn1 = Piece:new({placeHolder="Bishop",x=4,y=4,color="White"})
+local pawn1 = Piece:new({placeHolder="Queen",x=4,y=4,color="White"})
 print("running")
 local moves = pawn1:possibleMoves()
 for i=1, #moves do
