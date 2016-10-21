@@ -34,10 +34,10 @@ function Piece:possibleMoves()
 				if not hasMoved and game.board[self.x][self.y - 2]  == nil and game.board[self.x][self.y - 1]  == nil then --Hasn't moved and space 2 ahead is empty
 					moves[#moves + 1] = {self.x,self.y - 2}
 				end
-				if game.board[self.x+1][self.y-1] ~= nil then --space to right diagonal is occupied
+				if game.board[self.x+1][self.y-1] ~= nil and game.board[self.x+1][self.y-1].color ~= self.color then --space to right diagonal is occupied with an enemy
 					moves[#moves + 1] = {self.x+1,self.y-1}
 				end
-				if game.board[self.x-1][self.y-1] ~= nil then --space to left diagonal is occupied
+				if game.board[self.x-1][self.y-1] ~= nil and game.board[self.x-1][self.y-1].color ~= self.color then --space to left diagonal is occupied with an enemy
 					moves[#moves + 1] = {self.x-1,self.y-1}
 				end
 			end
@@ -49,10 +49,10 @@ function Piece:possibleMoves()
 				if not hasMoved and game.board[self.x][self.y + 2]  == nil and game.board[self.x][self.y + 1]  == nil then --Hasn't moved and space 2 ahead is empty
 					moves[#moves + 1] = {self.x,self.y + 2}
 				end
-				if game.board[self.x+1][self.y+1] ~= nil then --space to right diagonal is occupied
+				if game.board[self.x+1][self.y+1] ~= nil and game.board[self.x+1][self.y+1].color ~= self.color then --space to right diagonal is occupied
 					moves[#moves + 1] = {self.x+1,self.y+1}
 				end
-				if game.board[self.x-1][self.y+1] ~= nil then --space to left diagonal is occupied
+				if game.board[self.x-1][self.y+1] ~= nil and game.board[self.x-1][self.y+1].color ~= self.color then --space to left diagonal is occupied
 					moves[#moves + 1] = {self.x-1,self.y+1}
 				end
 			end
@@ -63,7 +63,7 @@ function Piece:possibleMoves()
 	elseif self.placeHolder == "Rook" then
 		 --moves to the right
 		for i=1, 7 do
-			if self.x+i < 9 and game.board[self.x+i][self.y] ~= nil then
+			if self.x+i < 9 and game.board[self.x+i][self.y] ~= nil and game.board[self.x+i][self.y].color ~= self.color then
 				moves[#moves+1] = {self.x+i,self.y}
 				break
 			elseif self.x+i < 9 then
@@ -72,7 +72,7 @@ function Piece:possibleMoves()
 		end
 		 --moves to the left
 		for i=1, 7 do 
-			if self.x-i > 0 and game.board[self.x-i][self.y] ~= nil then
+			if self.x-i > 0 and game.board[self.x-i][self.y] ~= nil and game.board[self.x-i][self.y].color ~= self.color then
 				moves[#moves+1] = {self.x-i,self.y}
 				break
 			elseif self.x-i > 0 then
@@ -81,7 +81,7 @@ function Piece:possibleMoves()
 		end
 		--moves forward
 		for i=1, 7 do
-			if self.y+i < 9 and game.board[self.x][self.y+i] ~= nil then
+			if self.y+i < 9 and game.board[self.x][self.y+i] ~= nil and game.board[self.x][self.y+i].color ~= self.color then
 				moves[#moves+1] = {self.x,self.y+i}
 				break
 			elseif self.y+i < 9 then
@@ -90,7 +90,7 @@ function Piece:possibleMoves()
 		end
 		--moves backward
 		for i=1, 7 do
-			if self.y-i > 0 and game.board[self.x][self.y-i] ~= nil then
+			if self.y-i > 0 and game.board[self.x][self.y-i] ~= nil and game.board[self.x][self.y-i].color ~= self.color then
 				moves[#moves+1] = {self.x,self.y-i}
 				break
 			elseif self.y-i > 0 then
