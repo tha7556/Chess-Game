@@ -100,34 +100,34 @@ function Piece:possibleMoves()
 	--Possible moves for Knights
 	elseif self.placeHolder == "Knight" then
 		if self.y-1 > 0 then --down 1 over 2
-			if self.x-3 > 0 then
+			if self.x-3 > 0 and game.board[self.x-2][self.y-1].color ~= self.color then
 				moves[#moves+1] = {self.x-2,self.y-1}
 			end
-			if self.x+3 < 9 then
+			if self.x+3 < 9 and game.board[self.x+2][self.y-1].color ~= self.color then
 				moves[#moves+1] = {self.x+2,self.y-1}
 			end
 		end
 		if self.y+1 < 9 then --up 1 over 2
-			if self.x-3 > 0 then
+			if self.x-3 > 0 and game.board[self.x-2][self.y+1].color ~= self.color then
 				moves[#moves+1] = {self.x-2,self.y+1}
 			end
-			if self.x+3 < 9 then
+			if self.x+3 < 9 and game.board[self.x+2][self.y+1].color ~= self.color then
 				moves[#moves+1] = {self.x+2,self.y+1}
 			end
 		end
 		if self.x+1 < 9 then --right 1 up/down 2
-			if self.y-3 > 0 then
+			if self.y-3 > 0 and game.board[self.x+1][self.y-2].color ~= self.color then
 				moves[#moves+1] = {self.x+1,self.y-2}
 			end
-			if self.y+3 < 9 then
+			if self.y+3 < 9 and game.board[self.x+1][self.y+2].color ~= self.color then
 				moves[#moves+1] = {self.x+1,self.y+2}
 			end
 		end
 		if self.x-1 > 0 then --left 1 up/down 2
-			if self.y-3 > 0 then
+			if self.y-3 > 0 and game.board[self.x-1][self.y-2].color ~= self.color then
 				moves[#moves+1] = {self.x-1,self.y-2}
 			end
-			if self.y+3 < 9 then
+			if self.y+3 < 9 and game.board[self.x-1][self.y+2].color ~= self.color then
 				moves[#moves+1] = {self.x-1,self.y+2}
 			end
 		end
