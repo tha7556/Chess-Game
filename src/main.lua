@@ -181,35 +181,72 @@ function Piece:possibleMoves()
 				if game.board[self.x-i][self.y+i] ~= nil then --if Space is occupied
 					topLeft = true
 				end
-				moves[#moves+1] = {self.x-i, self.y+i}
+				if game.board[self.x-i][self.y+i].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x-i, self.y+i}
+				end
 			end
 			--Top Right diagonal
 			if not topRight and self.x+i > 0 and self.y+i < 9 then
 				if  game.board[self.x+i][self.y+i] ~= nil then --if Space is occupied
 					topRight = true
 				end
-				moves[#moves+1] = {self.x+i, self.y+i}
+				if game.board[self.x+i][self.y+i].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x+i, self.y+i}
+				end
 			end
 			--Bottom Left diagonal
 			if not bottomLeft and self.x-i > 0 and self.y-i > 0 then
 				if game.board[self.x-i][self.y-i] ~= nil then --if Space is occupied
 					bottomLeft = true
 				end
-				moves[#moves+1] = {self.x-i, self.y-i} 
+				if game.board[self.x-i][self.y-i].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x-i, self.y-i} 
+				end
 			end
 			--Bottom Right diagonal
 			if not bottomRight and self.x+i < 9 and self.y-i > 0 then
 				if game.board[self.x+i][self.y-i] ~= nil then --if Space is occupied
 					bottomRight = true
 				end
-				moves[#moves+1] = {self.x+i, self.y-i}
+				if game.board[self.x+i][self.y-i].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x+i, self.y-i}
+				end
 			end
 			--Forward
 			if not top and self.y+i < 9 then
 				if game.board[self.x][self.y+i] ~= nil then --if Space is occupied
-					bottomRight = true
+					top = true
 				end
-				moves[#moves+1] = {self.x, self.y+i}
+				if game.board[self.x][self.y+i].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x, self.y+i}
+				end
+			end
+			--Backward
+			if not bottom and self.y-i > 0 then
+				if game.board[self.x][self.y-i] ~= nil then --if Space is occupied
+					bottom = true
+				end
+				if game.board[self.x][self.y-i].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x, self.y-i}
+				end
+			end
+			--Right
+			if not right and self.x+i < 9 then
+				if game.board[self.x+i][self.y] ~= nil then --if Space is occupied
+					right = true
+				end
+				if game.board[self.x+i][self.y].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x+i, self.y}
+				end
+			end
+			--Left
+			if not left and self.x-i > 0 then
+				if game.board[self.x-i][self.y] ~= nil then --if Space is occupied
+					left = true
+				end
+				if game.board[self.x-i][self.y].color ~= self.color then --prevents queen from friendly fire
+					moves[#moves+1] = {self.x-i, self.y}
+				end
 			end
 		end
 	--Possible moves for the King
