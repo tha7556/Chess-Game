@@ -140,28 +140,36 @@ function Piece:possibleMoves()
 				if game.board[self.x-i][self.y+i] ~= nil then --if Space is occupied
 					topLeft = true
 				end
-				moves[#moves+1] = {self.x-i, self.y+i}
+				if game.board[self.x-i][self.y+i].color ~= self.color then --prevents bishops from friendly fire
+					moves[#moves+1] = {self.x-i, self.y+i}
+				end
 			end
 			--Top Right diagonal
 			if not topRight and self.x+i > 0 and self.y+i < 9 then
 				if  game.board[self.x+i][self.y+i] ~= nil then --if Space is occupied
 					topRight = true
 				end
-				moves[#moves+1] = {self.x+i, self.y+i}
+				if game.board[self.x+i][self.y+i].color ~= self.color then --prevents bishops from friendly fire
+					moves[#moves+1] = {self.x+i, self.y+i}
+				end
 			end
 			--Bottom Left diagonal
 			if not bottomLeft and self.x-i > 0 and self.y-i > 0 then
 				if game.board[self.x-i][self.y-i] ~= nil then --if Space is occupied
 					bottomLeft = true
 				end
-				moves[#moves+1] = {self.x-i, self.y-i} 
+				if game.board[self.x-i][self.y-i].color ~= self.color then --prevents bishops from friendly fire
+					moves[#moves+1] = {self.x-i, self.y-i} 
+				end
 			end
 			--Bottom Right diagonal
 			if not bottomRight and self.x+i < 9 and self.y-i > 0 then
 				if game.board[self.x+i][self.y-i] ~= nil then --if Space is occupied
 					bottomRight = true
 				end
-				moves[#moves+1] = {self.x+i, self.y-i}
+				if game.board[self.x+i][self.y-i].color ~= self.color then --prevents bishops from friendly fire
+					moves[#moves+1] = {self.x+i, self.y-i}
+				end
 			end
 		end
 	--Possible moves for the Queen
