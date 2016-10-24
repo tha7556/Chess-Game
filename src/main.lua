@@ -61,40 +61,43 @@ function Piece:possibleMoves()
 		end
 	--Possible moves for Rooks
 	elseif self.placeHolder == "Rook" then
-		 --moves to the right
+		local top, bottom, right, left = false
 		for i=1, 7 do
-			if self.x+i < 9 and game.board[self.x+i][self.y] ~= nil and game.board[self.x+i][self.y].color ~= self.color then
-				moves[#moves+1] = {self.x+i,self.y}
-				break
-			elseif self.x+i < 9 then
-				moves[#moves+1] = {self.x+i,self.y}
+			--Forward
+			if not top and self.y+i < 9 then
+				if game.board[self.x][self.y+i] ~= nil then --if Space is occupied
+					top = true
+				end
+				if game.board[self.x][self.y+i].color ~= self.color then --prevents rook from friendly fire
+					moves[#moves+1] = {self.x, self.y+i}
+				end
 			end
-		end
-		 --moves to the left
-		for i=1, 7 do 
-			if self.x-i > 0 and game.board[self.x-i][self.y] ~= nil and game.board[self.x-i][self.y].color ~= self.color then
-				moves[#moves+1] = {self.x-i,self.y}
-				break
-			elseif self.x-i > 0 then
-				moves[#moves+1] = {self.x-i,self.y}
+			--Backward
+			if not bottom and self.y-i > 0 then
+				if game.board[self.x][self.y-i] ~= nil then --if Space is occupied
+					bottom = true
+				end
+				if game.board[self.x][self.y-i].color ~= self.color then --prevents rook from friendly fire
+					moves[#moves+1] = {self.x, self.y-i}
+				end
 			end
-		end
-		--moves forward
-		for i=1, 7 do
-			if self.y+i < 9 and game.board[self.x][self.y+i] ~= nil and game.board[self.x][self.y+i].color ~= self.color then
-				moves[#moves+1] = {self.x,self.y+i}
-				break
-			elseif self.y+i < 9 then
-				moves[#moves+1] = {self.x,self.y+i}
+			--Right
+			if not right and self.x+i < 9 then
+				if game.board[self.x+i][self.y] ~= nil then --if Space is occupied
+					right = true
+				end
+				if game.board[self.x+i][self.y].color ~= self.color then --prevents rook from friendly fire
+					moves[#moves+1] = {self.x+i, self.y}
+				end
 			end
-		end
-		--moves backward
-		for i=1, 7 do
-			if self.y-i > 0 and game.board[self.x][self.y-i] ~= nil and game.board[self.x][self.y-i].color ~= self.color then
-				moves[#moves+1] = {self.x,self.y-i}
-				break
-			elseif self.y-i > 0 then
-				moves[#moves+1] = {self.x,self.y-i}
+			--Left
+			if not left and self.x-i > 0 then
+				if game.board[self.x-i][self.y] ~= nil then --if Space is occupied
+					left = true
+				end
+				if game.board[self.x-i][self.y].color ~= self.color then --prevents rook from friendly fire
+					moves[#moves+1] = {self.x-i, self.y}
+				end
 			end
 		end
 	--Possible moves for Knights
