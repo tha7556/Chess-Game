@@ -7,6 +7,7 @@ function Piece:new(newObj)
 end
 --Game Class, contains Board
 Game = {isOver=false, board={
+		    --1   2   3   4   5   6   7   8 
 			{nil,nil,nil,nil,nil,nil,nil,nil}, --1
 			{nil,nil,nil,nil,nil,nil,nil,nil}, --2
 			{nil,nil,nil,nil,nil,nil,nil,nil}, --3
