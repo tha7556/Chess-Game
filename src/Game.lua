@@ -51,8 +51,10 @@ Game.metatable.__index = Game
 function Game:new(newObj)
 	return setmetatable(newObj, Game.metatable)
 end
-
---"Main"
-print("Running...")
-local game = Game:new({}) --Variable for the game
+function Game:setupGame()
+	for i=1, 16 do
+		self.board[self.whitePieces[i].x][self.whitePieces[i].y] = self.whitePieces[i]
+		self.board[self.blackPieces[i].x][self.blackPieces[i].y] = self.blackPieces[i]
+	end
+end
 
