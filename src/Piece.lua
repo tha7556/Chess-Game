@@ -238,16 +238,16 @@ function Piece:possibleMoves(game)
 			end
 		--Possible moves for the King
 		elseif self.placeHolder == "King" then
-			if self.y+1 < 9 then --forward
+			if self.y+1 < 9 and (game.board[self.x][self.y+1] == nil or game.board[self.x][self.y+1].color ~= self.color)  then --forward
 				moves[#moves+1] = {self.x, self.y + 1}
 			end
-			if self.y-1 > 0 then --backward
+			if self.y-1 > 0  and (game.board[self.x][self.y-1] == nil or game.board[self.x][self.y-1].color ~= self.color)then --backward
 				moves[#moves+1] = {self.x, self.y - 1}
 			end
-			if self.x+1 < 9 then --right
+			if self.x+1 < 9  and (game.board[self.x+1][self.y] == nil or game.board[self.x+1][self.y].color ~= self.color)then --right
 				moves[#moves+1] = {self.x + 1, self.y}
 			end
-			if self.x-1 > 0 then --left
+			if self.x-1 > 0  and (game.board[self.x-1][self.y] == nil or game.board[self.x-1][self.y].color ~= self.color)then --left
 				moves[#moves+1] = {self.x - 1, self.y}
 			end
 		end
