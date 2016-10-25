@@ -12,39 +12,39 @@ Game = {isOver=false, board={
 			{nil,nil,nil,nil,nil,nil,nil,nil}  --8
 			}, 
 			
-			whitePieces = {Piece:new({placeHolder="Rook",x=1,y=1,color="White"}),
-						   Piece:new({placeHolder="Knight",x=2,y=1,color="White"}),
-						   Piece:new({placeHolder="Bishop",x=3,y=1,color="White"}),
-						   Piece:new({placeHolder="Queen",x=4,y=1,color="White"}),
-						   Piece:new({placeHolder="King",x=5,y=1,color="White"}),
-						   Piece:new({placeHolder="Bishop",x=6,y=1,color="White"}),
-						   Piece:new({placeHolder="Knight",x=7,y=1,color="White"}),
-						   Piece:new({placeHolder="Rook",x=8,y=1,color="White"}),
-						   Piece:new({x=1,y=2,color="White"}),
-						   Piece:new({x=2,y=2,color="White"}),
-						   Piece:new({x=3,y=2,color="White"}),
-						   Piece:new({x=4,y=2,color="White"}),
-						   Piece:new({x=5,y=2,color="White"}),
-						   Piece:new({x=6,y=2,color="White"}),
-						   Piece:new({x=7,y=2,color="White"}),
-						   Piece:new({x=8,y=2,color="White"}),
+			whitePieces = {rook1 = Piece:new({placeHolder="Rook",x=1,y=1,color="White"}),
+						   knight1 = Piece:new({placeHolder="Knight",x=2,y=1,color="White"}),
+						   bishop1 = Piece:new({placeHolder="Bishop",x=3,y=1,color="White"}),
+						   queen = Piece:new({placeHolder="Queen",x=4,y=1,color="White"}),
+						   king = Piece:new({placeHolder="King",x=5,y=1,color="White"}),
+						   bishop2 = Piece:new({placeHolder="Bishop",x=6,y=1,color="White"}),
+						   knight2 = Piece:new({placeHolder="Knight",x=7,y=1,color="White"}),
+						   rook2 = Piece:new({placeHolder="Rook",x=8,y=1,color="White"}),
+						   pawn1 = Piece:new({x=1,y=2,color="White"}),
+						   pawn2 = Piece:new({x=2,y=2,color="White"}),
+						   pawn3 = Piece:new({x=3,y=2,color="White"}),
+						   pawn4 = Piece:new({x=4,y=2,color="White"}),
+						   pawn5 = Piece:new({x=5,y=2,color="White"}),
+						   pawn6 = Piece:new({x=6,y=2,color="White"}),
+						   pawn7 = Piece:new({x=7,y=2,color="White"}),
+						   pawn8 = Piece:new({x=8,y=2,color="White"}),
 						   }, 
-			blackPieces = {Piece:new({placeHolder="Rook",x=1,y=8,color="Black"}),
-						   Piece:new({placeHolder="Knight",x=2,y=8,color="Black"}),
-						   Piece:new({placeHolder="Bishop",x=3,y=8,color="Black"}),
-						   Piece:new({placeHolder="Queen",x=4,y=8,color="Black"}),
-						   Piece:new({placeHolder="King",x=5,y=8,color="Black"}),
-						   Piece:new({placeHolder="Bishop",x=6,y=8,color="Black"}),
-						   Piece:new({placeHolder="Knight",x=7,y=8,color="Black"}),
-						   Piece:new({placeHolder="Rook",x=8,y=8,color="Black"}),
-						   Piece:new({x=1,y=7,color="Black"}),
-						   Piece:new({x=2,y=7,color="Black"}),
-						   Piece:new({x=3,y=7,color="Black"}),
-						   Piece:new({x=4,y=7,color="Black"}),
-						   Piece:new({x=5,y=7,color="Black"}),
-						   Piece:new({x=6,y=7,color="Black"}),
-						   Piece:new({x=7,y=7,color="Black"}),
-						   Piece:new({x=8,y=7,color="Black"}),
+			blackPieces = {rook1 = Piece:new({placeHolder="Rook",x=1,y=8,color="Black"}),
+						   knight1 = Piece:new({placeHolder="Knight",x=2,y=8,color="Black"}),
+						   bishop1 = Piece:new({placeHolder="Bishop",x=3,y=8,color="Black"}),
+						   queen = Piece:new({placeHolder="Queen",x=4,y=8,color="Black"}),
+						   king = Piece:new({placeHolder="King",x=5,y=8,color="Black"}),
+						   bishop2 = Piece:new({placeHolder="Bishop",x=6,y=8,color="Black"}),
+						   knight2 = Piece:new({placeHolder="Knight",x=7,y=8,color="Black"}),
+						   rook1 = Piece:new({placeHolder="Rook",x=8,y=8,color="Black"}),
+						   pawn1 = Piece:new({x=1,y=7,color="Black"}),
+						   pawn2 = Piece:new({x=2,y=7,color="Black"}),
+						   pawn3 = Piece:new({x=3,y=7,color="Black"}),
+						   pawn4 = Piece:new({x=4,y=7,color="Black"}),
+						   pawn5 = Piece:new({x=5,y=7,color="Black"}),
+						   pawn6 = Piece:new({x=6,y=7,color="Black"}),
+						   pawn7 = Piece:new({x=7,y=7,color="Black"}),
+						   pawn8 = Piece:new({x=8,y=7,color="Black"}),
 						   }}
 Game.metatable = {}
 Game.metatable.__index = Game
@@ -52,9 +52,11 @@ function Game:new(newObj)
 	return setmetatable(newObj, Game.metatable)
 end
 function Game:setupGame()
-	for i=1, 16 do
-		self.board[self.whitePieces[i].x][self.whitePieces[i].y] = self.whitePieces[i]
-		self.board[self.blackPieces[i].x][self.blackPieces[i].y] = self.blackPieces[i]
+	for key,value in pairs(self.whitePieces) do
+		self.board[value.x][value.y] = value
+	end
+	for key,value in pairs(self.blackPieces) do
+		self.board[value.x][value.y] = value
 	end
 end
 
