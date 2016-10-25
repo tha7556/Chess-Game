@@ -52,7 +52,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x][self.y+i] ~= nil then --if Space is occupied
 						top = true
 					end
-					if game.board[self.x][self.y+i].color ~= self.color then --prevents rook from friendly fire
+					if game.board[self.x][self.y+i] == nil or game.board[self.x][self.y+i].color ~= self.color then --prevents rook from friendly fire
 						moves[#moves+1] = {self.x, self.y+i}
 					end
 				end
@@ -61,7 +61,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x][self.y-i] ~= nil then --if Space is occupied
 						bottom = true
 					end
-					if game.board[self.x][self.y-i].color ~= self.color then --prevents rook from friendly fire
+					if game.board[self.x][self.y-i] == nil or game.board[self.x][self.y-i].color ~= self.color then --prevents rook from friendly fire
 						moves[#moves+1] = {self.x, self.y-i}
 					end
 				end
@@ -70,7 +70,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x+i][self.y] ~= nil then --if Space is occupied
 						right = true
 					end
-					if game.board[self.x+i][self.y].color ~= self.color then --prevents rook from friendly fire
+					if game.board[self.x+i][self.y] == nil or game.board[self.x+i][self.y].color ~= self.color then --prevents rook from friendly fire
 						moves[#moves+1] = {self.x+i, self.y}
 					end
 				end
@@ -79,7 +79,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x-i][self.y] ~= nil then --if Space is occupied
 						left = true
 					end
-					if game.board[self.x-i][self.y].color ~= self.color then --prevents rook from friendly fire
+					if game.board[self.x-i][self.y] == nil or game.board[self.x-i][self.y].color ~= self.color then --prevents rook from friendly fire
 						moves[#moves+1] = {self.x-i, self.y}
 					end
 				end
@@ -87,34 +87,34 @@ function Piece:possibleMoves(game)
 		--Possible moves for Knights
 		elseif self.placeHolder == "Knight" then
 			if self.y-1 > 0 then --down 1 over 2
-				if self.x-3 > 0 and game.board[self.x-2][self.y-1].color ~= self.color then
+				if self.x-2 > 0 and game.board[self.x-2][self.y-1] ~= nil and game.board[self.x-2][self.y-1].color ~= self.color then
 					moves[#moves+1] = {self.x-2,self.y-1}
 				end
-				if self.x+3 < 9 and game.board[self.x+2][self.y-1].color ~= self.color then
+				if self.x+2 < 9 and game.board[self.x+2][self.y-1] ~= nil and game.board[self.x+2][self.y-1].color ~= self.color then
 					moves[#moves+1] = {self.x+2,self.y-1}
 				end
 			end
 			if self.y+1 < 9 then --up 1 over 2
-				if self.x-3 > 0 and game.board[self.x-2][self.y+1].color ~= self.color then
+				if self.x-2 > 0 and game.board[self.x-2][self.y+1] ~= nil and game.board[self.x-2][self.y+1].color ~= self.color then
 					moves[#moves+1] = {self.x-2,self.y+1}
 				end
-				if self.x+3 < 9 and game.board[self.x+2][self.y+1].color ~= self.color then
+				if self.x+2 < 9 and game.board[self.x+2][self.y+1] ~= nil and game.board[self.x+2][self.y+1].color ~= self.color then
 					moves[#moves+1] = {self.x+2,self.y+1}
 				end
 			end
 			if self.x+1 < 9 then --right 1 up/down 2
-				if self.y-3 > 0 and game.board[self.x+1][self.y-2].color ~= self.color then
+				if self.y-3 > 0 and game.board[self.x+1][self.y-2] ~= nil and game.board[self.x+1][self.y-2].color ~= self.color then
 					moves[#moves+1] = {self.x+1,self.y-2}
 				end
-				if self.y+3 < 9 and game.board[self.x+1][self.y+2].color ~= self.color then
+				if self.y+2 < 9 and game.board[self.x+1][self.y+2] ~= nil and game.board[self.x+1][self.y+2].color ~= self.color then
 					moves[#moves+1] = {self.x+1,self.y+2}
 				end
 			end
 			if self.x-1 > 0 then --left 1 up/down 2
-				if self.y-3 > 0 and game.board[self.x-1][self.y-2].color ~= self.color then
+				if self.y-2 > 0 and game.board[self.x-1][self.y-2] ~= nil and game.board[self.x-1][self.y-2].color ~= self.color then
 					moves[#moves+1] = {self.x-1,self.y-2}
 				end
-				if self.y+3 < 9 and game.board[self.x-1][self.y+2].color ~= self.color then
+				if self.y+2 < 9 and game.board[self.x-1][self.y+2] ~= nil and game.board[self.x-1][self.y+2].color ~= self.color then
 					moves[#moves+1] = {self.x-1,self.y+2}
 				end
 			end
@@ -127,7 +127,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x-i][self.y+i] ~= nil then --if Space is occupied
 						topLeft = true
 					end
-					if game.board[self.x-i][self.y+i].color ~= self.color then --prevents bishops from friendly fire
+					if game.board[self.x-i][self.y+i] == nil or game.board[self.x-i][self.y+i].color ~= self.color then --prevents bishops from friendly fire
 						moves[#moves+1] = {self.x-i, self.y+i}
 					end
 				end
@@ -136,7 +136,7 @@ function Piece:possibleMoves(game)
 					if  game.board[self.x+i][self.y+i] ~= nil then --if Space is occupied
 						topRight = true
 					end
-					if game.board[self.x+i][self.y+i].color ~= self.color then --prevents bishops from friendly fire
+					if game.board[self.x+i][self.y+i] == nil or game.board[self.x+i][self.y+i].color ~= self.color then --prevents bishops from friendly fire
 						moves[#moves+1] = {self.x+i, self.y+i}
 					end
 				end
@@ -145,7 +145,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x-i][self.y-i] ~= nil then --if Space is occupied
 						bottomLeft = true
 					end
-					if game.board[self.x-i][self.y-i].color ~= self.color then --prevents bishops from friendly fire
+					if game.board[self.x-i][self.y-i] == nil or game.board[self.x-i][self.y-i].color ~= self.color then --prevents bishops from friendly fire
 						moves[#moves+1] = {self.x-i, self.y-i} 
 					end
 				end
@@ -154,7 +154,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x+i][self.y-i] ~= nil then --if Space is occupied
 						bottomRight = true
 					end
-					if game.board[self.x+i][self.y-i].color ~= self.color then --prevents bishops from friendly fire
+					if game.board[self.x+i][self.y-i] == nil or game.board[self.x+i][self.y-i].color ~= self.color then --prevents bishops from friendly fire
 						moves[#moves+1] = {self.x+i, self.y-i}
 					end
 				end
@@ -168,7 +168,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x-i][self.y+i] ~= nil then --if Space is occupied
 						topLeft = true
 					end
-					if game.board[self.x-i][self.y+i].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x-i][self.y+i] == nil or game.board[self.x-i][self.y+i].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x-i, self.y+i}
 					end
 				end
@@ -177,7 +177,7 @@ function Piece:possibleMoves(game)
 					if  game.board[self.x+i][self.y+i] ~= nil then --if Space is occupied
 						topRight = true
 					end
-					if game.board[self.x+i][self.y+i].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x+i][self.y+i] == nil or game.board[self.x+i][self.y+i].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x+i, self.y+i}
 					end
 				end
@@ -186,7 +186,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x-i][self.y-i] ~= nil then --if Space is occupied
 						bottomLeft = true
 					end
-					if game.board[self.x-i][self.y-i].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x-i][self.y-i] == nil or game.board[self.x-i][self.y-i].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x-i, self.y-i} 
 					end
 				end
@@ -195,7 +195,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x+i][self.y-i] ~= nil then --if Space is occupied
 						bottomRight = true
 					end
-					if game.board[self.x+i][self.y-i].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x+i][self.y-i] == nil or game.board[self.x+i][self.y-i].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x+i, self.y-i}
 					end
 				end
@@ -204,7 +204,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x][self.y+i] ~= nil then --if Space is occupied
 						top = true
 					end
-					if game.board[self.x][self.y+i].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x][self.y+i] == nil or game.board[self.x][self.y+i].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x, self.y+i}
 					end
 				end
@@ -213,7 +213,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x][self.y-i] ~= nil then --if Space is occupied
 						bottom = true
 					end
-					if game.board[self.x][self.y-i].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x][self.y-i] == nil or game.board[self.x][self.y-i].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x, self.y-i}
 					end
 				end
@@ -222,7 +222,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x+i][self.y] ~= nil then --if Space is occupied
 						right = true
 					end
-					if game.board[self.x+i][self.y].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x+i][self.y] == nil or game.board[self.x+i][self.y].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x+i, self.y}
 					end
 				end
@@ -231,7 +231,7 @@ function Piece:possibleMoves(game)
 					if game.board[self.x-i][self.y] ~= nil then --if Space is occupied
 						left = true
 					end
-					if game.board[self.x-i][self.y].color ~= self.color then --prevents queen from friendly fire
+					if game.board[self.x-i][self.y] == nil or game.board[self.x-i][self.y].color ~= self.color then --prevents queen from friendly fire
 						moves[#moves+1] = {self.x-i, self.y}
 					end
 				end
@@ -254,5 +254,17 @@ function Piece:possibleMoves(game)
 		return moves
 	else
 		print("Error, game is nil")
+	end
+end
+function Piece:checkMove(game, possibleMoves) --Checks that a move doesn't put the King in check
+	for i=1, #possibleMoves do
+		local color = self.color
+		if color == "White" then
+			for key, value in pairs(game.blackPieces) do
+			end
+		else
+			for key, value in pairs(game.whitePieces) do
+			end
+		end
 	end
 end
