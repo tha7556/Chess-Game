@@ -3,4 +3,9 @@ local g = require "Game"
 print("Running!")
 local game = Game:new({}) --Variable for the game
 game:setupGame()
-print(game.board[1][1].placeHolder)
+moves = game.board[2][1]:possibleMoves(game)
+moves = game.board[2][1]:checkMoves(game, moves)
+--print(game.board[2][1].placeHolder.." has "..#moves.." moves")
+for i=1, #moves do
+	print(moves[i][1]..","..moves[i][2])
+end

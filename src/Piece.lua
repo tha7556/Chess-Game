@@ -18,10 +18,11 @@ function Piece:possibleMoves(game)
 					if not hasMoved and game.board[self.x][self.y - 2]  == nil and game.board[self.x][self.y - 1]  == nil then --Hasn't moved and space 2 ahead is empty
 						moves[#moves + 1] = {self.x,self.y - 2}
 					end
-					if game.board[self.x+1][self.y-1] ~= nil and game.board[self.x+1][self.y-1].color ~= self.color then --space to right diagonal is occupied with an enemy
+					
+					if self.x+1 < 9 and game.board[self.x+1][self.y-1] ~= nil and game.board[self.x+1][self.y-1].color ~= self.color then --space to right diagonal is occupied with an enemy
 						moves[#moves + 1] = {self.x+1,self.y-1}
 					end
-					if game.board[self.x-1][self.y-1] ~= nil and game.board[self.x-1][self.y-1].color ~= self.color then --space to left diagonal is occupied with an enemy
+					if self.x-1 > 0 and game.board[self.x-1][self.y-1] ~= nil and game.board[self.x-1][self.y-1].color ~= self.color then --space to left diagonal is occupied with an enemy
 						moves[#moves + 1] = {self.x-1,self.y-1}
 					end
 				end
@@ -87,34 +88,34 @@ function Piece:possibleMoves(game)
 		--Possible moves for Knights
 		elseif self.placeHolder == "Knight" then
 			if self.y-1 > 0 then --down 1 over 2
-				if self.x-2 > 0 and game.board[self.x-2][self.y-1] ~= nil and game.board[self.x-2][self.y-1].color ~= self.color then
+				if self.x-2 > 0 and (game.board[self.x-2][self.y-1] == nil or game.board[self.x-2][self.y-1].color ~= self.color) then
 					moves[#moves+1] = {self.x-2,self.y-1}
 				end
-				if self.x+2 < 9 and game.board[self.x+2][self.y-1] ~= nil and game.board[self.x+2][self.y-1].color ~= self.color then
+				if self.x+2 < 9 and (game.board[self.x+2][self.y-1] == nil or game.board[self.x+2][self.y-1].color ~= self.color) then
 					moves[#moves+1] = {self.x+2,self.y-1}
 				end
 			end
 			if self.y+1 < 9 then --up 1 over 2
-				if self.x-2 > 0 and game.board[self.x-2][self.y+1] ~= nil and game.board[self.x-2][self.y+1].color ~= self.color then
+				if self.x-2 > 0 and (game.board[self.x-2][self.y+1] == nil or game.board[self.x-2][self.y+1].color ~= self.color) then
 					moves[#moves+1] = {self.x-2,self.y+1}
 				end
-				if self.x+2 < 9 and game.board[self.x+2][self.y+1] ~= nil and game.board[self.x+2][self.y+1].color ~= self.color then
+				if self.x+2 < 9 and (game.board[self.x+2][self.y+1] == nil or game.board[self.x+2][self.y+1].color ~= self.color) then
 					moves[#moves+1] = {self.x+2,self.y+1}
 				end
 			end
 			if self.x+1 < 9 then --right 1 up/down 2
-				if self.y-3 > 0 and game.board[self.x+1][self.y-2] ~= nil and game.board[self.x+1][self.y-2].color ~= self.color then
+				if self.y-2 > 0 and (game.board[self.x+1][self.y-2] == nil or game.board[self.x+1][self.y-2].color ~= self.color) then
 					moves[#moves+1] = {self.x+1,self.y-2}
 				end
-				if self.y+2 < 9 and game.board[self.x+1][self.y+2] ~= nil and game.board[self.x+1][self.y+2].color ~= self.color then
+				if self.y+2 < 9 and (game.board[self.x+1][self.y+2] == nil or game.board[self.x+1][self.y+2].color ~= self.color) then
 					moves[#moves+1] = {self.x+1,self.y+2}
 				end
 			end
 			if self.x-1 > 0 then --left 1 up/down 2
-				if self.y-2 > 0 and game.board[self.x-1][self.y-2] ~= nil and game.board[self.x-1][self.y-2].color ~= self.color then
+				if self.y-2 > 0 and (game.board[self.x-1][self.y-2] == nil or game.board[self.x-1][self.y-2].color ~= self.color) then
 					moves[#moves+1] = {self.x-1,self.y-2}
 				end
-				if self.y+2 < 9 and game.board[self.x-1][self.y+2] ~= nil and game.board[self.x-1][self.y+2].color ~= self.color then
+				if self.y+2 < 9 and (game.board[self.x-1][self.y+2] == nil or game.board[self.x-1][self.y+2].color ~= self.color) then
 					moves[#moves+1] = {self.x-1,self.y+2}
 				end
 			end
@@ -256,15 +257,62 @@ function Piece:possibleMoves(game)
 		print("Error, game is nil")
 	end
 end
-function Piece:checkMove(game, possibleMoves) --Checks that a move doesn't put the King in check
+function Piece:checkMoves(game, possibleMoves) --Checks that a move doesn't put the King in check
+	local x = self.x --The Piece's original x location
+	local y = self.y --The Piece's original x location
 	for i=1, #possibleMoves do
-		local color = self.color
-		if color == "White" then
-			for key, value in pairs(game.blackPieces) do
-			end
-		else
-			for key, value in pairs(game.whitePieces) do
-			end
+		local newX = possibleMoves[i][1] --Where the Piece is trying to move to (X)
+		local newY = possibleMoves[i][2] --Where the Piece is trying to move to (Y)
+		local piece = game.board[newX][newY] --The Piece that is already in that spot (or nil)
+		self:moveTo(game, newX, newY) --Temporarily moves the Piece to the possible location
+		
+		if self.color == "White" then
+			local kingX = game.whitePieces.king.x 
+			local kingY = game.whitePieces.king.y
+			
+			for key, value in pairs(game.blackPieces) do --check that black cannot take the King next turn
+				enemyMoves = game.blackPieces[key]:possibleMoves(game)
+				for z=1, #enemyMoves do
+					if kingX == enemyMoves[z][1] and kingY == enemyMoves[z][2] then
+						possibleMoves.remove(i)
+						break
+					end
+				end
+			end			
 		end
+		if self.color == "Black" then
+			local kingX = game.blackPieces.king.x 
+			local kingY = game.blackPieces.king.y
+			
+			for key, value in pairs(game.whitePieces) do --check that white cannot take the King next turn
+				enemyMoves = game.whitePieces[key]:possibleMoves(game)
+				for z=1, #enemyMoves do
+					if kingX == enemyMoves[z][1] and kingY == enemyMoves[z][2] then
+						possibleMoves.remove(i)
+						break
+					end
+				end
+			end			
+		end
+		
+		
+		self:moveTo(game, x, y) --Puts everything back where it started
+		if piece ~= nil then
+			piece:moveTo(game, newX, newY)
+		else
+			game.board[newX][newY] = nil
+		end
+		
 	end
+	return possibleMoves
+end
+function Piece:moveTo(game,x,y)
+	game.board[self.x][self.y] = nil
+	self.x = x
+	self.y = y
+	if game.board[x][y] ~= nil then
+		game.board[x][y].x = -1
+		game.board[x][y].y = -1
+	end
+	game.board[x][y] = self
 end
