@@ -1,3 +1,10 @@
+--Piece Class		
+Piece = {placeHolder="Pawn",color="Grey",x=-1,y=-1,hasMoved=false,number=-1}
+Piece.metatable = {}
+Piece.metatable.__index = Piece
+function Piece:new(newObj)
+	return setmetatable(newObj, Piece.metatable)
+end
 --Game Class, contains Board
 Game = {isOver=false, board={
 			{nil,nil,nil,nil,nil,nil,nil,nil}, --1
@@ -8,20 +15,48 @@ Game = {isOver=false, board={
 			{nil,nil,nil,nil,nil,nil,nil,nil}, --6
 			{nil,nil,nil,nil,nil,nil,nil,nil}, --7
 			{nil,nil,nil,nil,nil,nil,nil,nil}  --8
-			}}
+			}, 
+			whitePieces = {Piece:new({placeHolder="Rook",x=1,y=1,color="White"}),
+						   Piece:new({placeHolder="Knight",x=2,y=1,color="White"}),
+						   Piece:new({placeHolder="Bishop",x=3,y=1,color="White"}),
+						   Piece:new({placeHolder="Queen",x=4,y=1,color="White"}),
+						   Piece:new({placeHolder="King",x=5,y=1,color="White"}),
+						   Piece:new({placeHolder="Bishop",x=6,y=1,color="White"}),
+						   Piece:new({placeHolder="Knight",x=7,y=1,color="White"}),
+						   Piece:new({placeHolder="Rook",x=8,y=1,color="White"}),
+						   Piece:new({x=1,y=2,color="White"}),
+						   Piece:new({x=2,y=2,color="White"}),
+						   Piece:new({x=3,y=2,color="White"}),
+						   Piece:new({x=4,y=2,color="White"}),
+						   Piece:new({x=5,y=2,color="White"}),
+						   Piece:new({x=6,y=2,color="White"}),
+						   Piece:new({x=7,y=2,color="White"}),
+						   Piece:new({x=8,y=2,color="White"}),
+						   }, 
+			blackPieces = {Piece:new({placeHolder="Rook",x=1,y=8,color="Black"}),
+						   Piece:new({placeHolder="Knight",x=2,y=8,color="Black"}),
+						   Piece:new({placeHolder="Bishop",x=3,y=8,color="Black"}),
+						   Piece:new({placeHolder="Queen",x=4,y=8,color="Black"}),
+						   Piece:new({placeHolder="King",x=5,y=8,color="Black"}),
+						   Piece:new({placeHolder="Bishop",x=6,y=8,color="Black"}),
+						   Piece:new({placeHolder="Knight",x=7,y=8,color="Black"}),
+						   Piece:new({placeHolder="Rook",x=8,y=8,color="Black"}),
+						   Piece:new({x=1,y=7,color="Black"}),
+						   Piece:new({x=2,y=7,color="Black"}),
+						   Piece:new({x=3,y=7,color="Black"}),
+						   Piece:new({x=4,y=7,color="Black"}),
+						   Piece:new({x=5,y=7,color="Black"}),
+						   Piece:new({x=6,y=7,color="Black"}),
+						   Piece:new({x=7,y=7,color="Black"}),
+						   Piece:new({x=8,y=7,color="Black"}),
+						   }}
 Game.metatable = {}
 Game.metatable.__index = Game
 function Game:new(newObj)
 	return setmetatable(newObj, Game.metatable)
 end
 game = Game:new({}) --Global variable for the game
---Piece Class		
-Piece = {placeHolder="Pawn",color="Grey",x=-1,y=-1,hasMoved=false,number=-1}
-Piece.metatable = {}
-Piece.metatable.__index = Piece
-function Piece:new(newObj)
-	return setmetatable(newObj, Piece.metatable)
-end
+--Piece Functions
 function Piece:possibleMoves()
 	moves = {}
 	--Possible moves for pawns 
