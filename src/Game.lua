@@ -36,7 +36,7 @@ Game = {isOver=false, board={
 						   king = Piece:new({placeHolder="King",x=5,y=8,color="Black"}),
 						   bishop2 = Piece:new({placeHolder="Bishop",x=6,y=8,color="Black"}),
 						   knight2 = Piece:new({placeHolder="Knight",x=7,y=8,color="Black"}),
-						   rook1 = Piece:new({placeHolder="Rook",x=8,y=8,color="Black"}),
+						   rook2 = Piece:new({placeHolder="Rook",x=8,y=8,color="Black"}),
 						   pawn1 = Piece:new({x=1,y=7,color="Black"}),
 						   pawn2 = Piece:new({x=2,y=7,color="Black"}),
 						   pawn3 = Piece:new({x=3,y=7,color="Black"}),
@@ -57,6 +57,24 @@ function Game:setupGame()
 	end
 	for key,value in pairs(self.blackPieces) do
 		self.board[value.x][value.y] = value
+	end
+end
+function Game:printBoard()
+	local write = io.write
+	write("\n")
+	for i=1, #self.board do
+		for y=1, #self.board do
+			if self.board[y][i] == nil then
+				write("----   ")
+			else
+				if self.board[y][i].color == "White" then
+					write("("..string.sub(self.board[y][i].placeHolder, 1, 2)..")   ")
+				else
+					write("["..string.sub(self.board[y][i].placeHolder, 1, 2).."]   ")
+				end
+			end
+		end
+		write("\n")
 	end
 end
 
