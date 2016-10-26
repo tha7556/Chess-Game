@@ -61,20 +61,22 @@ function Game:setupGame()
 end
 function Game:printBoard()
 	local write = io.write
-	write("\n")
-	for i=1, #self.board do
-		for y=1, #self.board do
-			if self.board[y][i] == nil then
+	write("\n|   -----------------------------------------------------   |\n|   ")
+	for y=#self.board, 1, -1 do
+		for x=1, #self.board do
+			if self.board[x][y] == nil then
 				write("----   ")
 			else
-				if self.board[y][i].color == "White" then
-					write("("..string.sub(self.board[y][i].placeHolder, 1, 2)..")   ")
+				if self.board[x][y].color == "White" then
+					write("("..string.sub(self.board[x][y].placeHolder, 1, 2)..")   ")
 				else
-					write("["..string.sub(self.board[y][i].placeHolder, 1, 2).."]   ")
+					write("["..string.sub(self.board[x][y].placeHolder, 1, 2).."]   ")
 				end
 			end
 		end
-		write("\n")
+		write("|   \n|   ")
 	end
+	write("-----------------------------------------------------   |\n")
+
 end
 
