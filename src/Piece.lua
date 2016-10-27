@@ -311,10 +311,7 @@ function Piece:checkMoves(game, possibleMoves) --Checks that a move doesn't put 
 		
 	end
 	goodMoves = {}
-	print("len: "..#possibleMoves)
-	for i=1, #possibleMoves-1 do
-		print("i="..i)
-		print("\t{"..possibleMoves[i][1]..","..possibleMoves[i][2].."}")				
+	for i=1, #possibleMoves do				
 		if badMoves[i] == nil then
 			goodMoves[#goodMoves+1] = possibleMoves[i]
 		end
