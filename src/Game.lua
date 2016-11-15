@@ -79,4 +79,17 @@ function Game:printBoard()
 	write("-----------------------------------------------------   |\n")
 
 end
+function Game:displayBoard()
+	print("test")
+	display.setDefault("background",1,1,1)
+	local myRectangle = display.newRect( 40, 100, 35, 35 )
+	myRectangle.strokeWidth = 3
+	myRectangle:setFillColor( 230/255, 215/255, 194/255 )
+	myRectangle:setStrokeColor( 0, 0, 0 )
+	
+	local myRectangle = display.newRect( 75, 100, 35, 35 )
+	myRectangle.strokeWidth = 3
+	myRectangle:setFillColor( 171/255, 84/255, 24/255 )
+	myRectangle:setStrokeColor( 0, 0, 0 )
+end
 
