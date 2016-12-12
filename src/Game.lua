@@ -80,16 +80,21 @@ function Game:printBoard()
 
 end
 function Game:displayBoard()
-	print("test")
 	display.setDefault("background",1,1,1)
-	local myRectangle = display.newRect( 40, 100, 35, 35 )
-	myRectangle.strokeWidth = 3
-	myRectangle:setFillColor( 230/255, 215/255, 194/255 )
-	myRectangle:setStrokeColor( 0, 0, 0 )
-	
-	local myRectangle = display.newRect( 75, 100, 35, 35 )
-	myRectangle.strokeWidth = 3
-	myRectangle:setFillColor( 171/255, 84/255, 24/255 )
-	myRectangle:setStrokeColor( 0, 0, 0 )
+	local spaces = {}
+	for x=1, 8 do
+		for y=1, 8 do
+			local myRectangle = display.newRect( (x*37)-6, 60+(y*37), 36, 36 ) --(x,y,width,height)
+			myRectangle.strokeWidth = 1
+			myRectangle:setStrokeColor( 0, 0, 0 )
+			if (x+y+1)%2 == 0 then
+				myRectangle:setFillColor( 230/255, 215/255, 194/255 ) --Light space
+			else
+				myRectangle:setFillColor( 171/255, 84/255, 24/255 ) -- Dark space
+			end
+			spaces[#spaces+1] = myRectangle
+		end
+	end
+	return spaces
 end
 
